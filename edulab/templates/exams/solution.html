@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Тест по программированию</h1>
+            <p class="mt-2 text-gray-600">Выберите все правильные варианты ответов для каждого вопроса</p>
+        </div>
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            {% for form in forms %}
+                <div class="bg-white rounded-lg p-6 shadow-md mb-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">
+                        {{ form.answers.label }}
+                    </h3>
+                    <div class="space-y-3">
+                        {% for checkbox in form.answers %}
+                            <label class="flex items-center space-x-3 cursor-pointer"  onmouseover="this.style.backgroundColor='#cfe6ce';" onmouseout="this.style.backgroundColor='white';" style="padding-right: 20px; padding-left: 10px; border-radius: 14px">
+                                {{ checkbox.tag }}
+                                <span style="margin-left: 10px; font-size: 20px" class="text-gray-700">{{ checkbox.choice_label }}</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="mt-8 flex justify-center items-center">
+                <button type="submit"
+                        class="btn-academic py-2 rounded-lg flex items-center gap-2" style="padding-left: 8rem; padding-right: 8rem;">
+                    Отправить ответы
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,294 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold mb-6">Создание нового теста</h2>
+        <div class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Название теста</label>
+                <input type="text" id="test-name" placeholder="Введите название теста"
+                       class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Предмет</label>
+                    <select id="subject" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500">
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Класс</label>
+                    <select id="class" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500">
+                        <option value="1">1 класс</option>
+                        <option value="2">2 класс</option>
+                        <option value="3">3 класс</option>
+                        <option value="4">4 класс</option>
+                        <option value="5">5 класс</option>
+                        <option value="6">6 класс</option>
+                        <option value="7">7 класс</option>
+                        <option value="8">8 класс</option>
+                        <option value="9">9 класс</option>
+                        <option value="10">10 класс</option>
+                        <option value="11">11 класс</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="space-y-4" id="questions-container">
+                <h3 class="text-lg font-semibold">Вопросы</h3>
+                <div class="question-container" id="question-1">
+                    <div class="border rounded-lg p-4 mb-4 bg-white">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-lg font-semibold">Вопрос 1</h3>
+                            <button class="text-red-500 hover:text-red-700 delete-question" data-question-id="1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="lucide lucide-trash2">
+                                    <path d="M3 6h18"></path>
+                                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                                    <line x1="10" x2="10" y1="11" y2="17"></line>
+                                    <line x1="14" x2="14" y1="11" y2="17"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="mb-4">
+                            <input type="text" placeholder="Введите текст вопроса"
+                                   class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 question-text"
+                                   required>
+                        </div>
+                        <div class="space-y-3" id="answers-container-1">
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" name="correct-1" class="w-4 h-4 text-blue-600">
+                                <input type="text" placeholder="Вариант 1"
+                                       class="flex-1 p-2 border rounded focus:ring-2 focus:ring-blue-500 answer-text"
+                                       required>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" name="correct-1" class="w-4 h-4 text-blue-600">
+                                <input type="text" placeholder="Вариант 2"
+                                       class="flex-1 p-2 border rounded focus:ring-2 focus:ring-blue-500 answer-text"
+                                       required>
+                            </div>
+                        </div>
+                        <button class="mt-3 flex items-center gap-2 text-blue-600 hover:text-blue-800 add-answer"
+                                data-question-id="1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="lucide lucide-plus-circle">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M8 12h8"></path>
+                                <path d="M12 8v8"></path>
+                            </svg>
+                            Добавить вариант ответа
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="flex items-center gap-2 text-blue-600 hover:text-blue-800" id="add-question">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="lucide lucide-plus-circle">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M8 12h8"></path>
+                    <path d="M12 8v8"></path>
+                </svg>
+                Добавить вопрос
+            </button>
+            <div class="flex justify-end gap-4 mt-6">
+                <button type="button" class="px-4 py-2 border rounded-lg hover:bg-gray-50">Отмена</button>
+                <button type="submit" id="save-test" class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="lucide lucide-save">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                    Сохранить тест
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let questionCount = 1;
+        let answerCount = 2;
+        
+        function getCsrfToken() {
+            const name = 'csrftoken';
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        function checkSaveButtonState() {
+            const testName = document.getElementById('test-name').value.trim();
+            const questions = document.querySelectorAll('.question-container');
+            let isValid = testName.length > 0 && questions.length > 0;
+
+            questions.forEach(question => {
+                const questionText = question.querySelector('.question-text').value.trim();
+                const answerInputs = question.querySelectorAll('.answer-text');
+                const checkedAnswers = question.querySelectorAll('input[type="checkbox"]:checked').length;
+                
+                if (questionText.length > 0 && answerInputs.length >= 2 && checkedAnswers > 0) {
+                    isValid = true;
+                } else {
+                    isValid = false;
+                }
+            });
+
+            const saveButton = document.getElementById('save-test');
+            saveButton.disabled = !isValid;
+        }
+
+        async function loadSubjects() {
+            try {
+                const response = await fetch('/api/get_subjects');
+                const subjects = await response.json();
+
+                const subjectSelect = document.getElementById('subject');
+                subjects.forEach(subject => {
+                    const option = document.createElement('option');
+                    option.value = subject;
+                    option.textContent = subject;
+                    subjectSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Ошибка при загрузке предметов:', error);
+            }
+        }
+
+        window.onload = loadSubjects;
+        
+        function addAnswerButtonListener(questionId) {
+            const button = document.querySelector(`.add-answer[data-question-id="${questionId}"]`);
+            button.addEventListener('click', () => {
+                answerCount++;
+                const answersContainer = document.getElementById(`answers-container-${questionId}`);
+                const newAnswer = document.createElement('div');
+                newAnswer.classList.add('flex', 'items-center', 'gap-2');
+                newAnswer.innerHTML = `
+                    <input type="checkbox" name="correct-${questionId}" class="w-4 h-4 text-blue-600">
+                    <input type="text" placeholder="Вариант ${answerCount}" class="flex-1 p-2 border rounded focus:ring-2 focus:ring-blue-500 answer-text" required>
+                `;
+                answersContainer.appendChild(newAnswer);
+            });
+        }
+        
+        function addDeleteButtonListener(questionId) {
+            const deleteButton = document.querySelector(`.delete-question[data-question-id="${questionId}"]`);
+            deleteButton.addEventListener('click', () => {
+                const questionContainer = document.getElementById(`question-${questionId}`);
+                questionContainer.remove();
+            });
+        }
+        
+        addAnswerButtonListener(1);
+        addDeleteButtonListener(1);
+        
+
+        document.getElementById('add-question').addEventListener('click', () => {
+            questionCount++;
+            const questionContainer = document.createElement('div');
+            questionContainer.classList.add('question-container');
+            questionContainer.id = `question-${questionCount}`;
+            questionContainer.innerHTML = `
+                <div class="border rounded-lg p-4 mb-4 bg-white">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold">Вопрос ${questionCount}</h3>
+                        <button class="text-red-500 hover:text-red-700 delete-question" data-question-id="${questionCount}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2">
+                                <path d="M3 6h18"></path>
+                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                                <line x1="10" x2="10" y1="11" y2="17"></line>
+                                <line x1="14" x2="14" y1="11" y2="17"></line>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mb-4">
+                        <input type="text" placeholder="Введите текст вопроса" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 question-text" required>
+                    </div>
+                    <div class="space-y-3" id="answers-container-${questionCount}">
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" name="correct-${questionCount}" class="w-4 h-4 text-blue-600">
+                            <input type="text" placeholder="Вариант 1" class="flex-1 p-2 border rounded focus:ring-2 focus:ring-blue-500 answer-text" required>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" name="correct-${questionCount}" class="w-4 h-4 text-blue-600">
+                            <input type="text" placeholder="Вариант 2" class="flex-1 p-2 border rounded focus:ring-2 focus:ring-blue-500 answer-text" required>
+                        </div>
+                    </div>
+                    <button class="mt-3 flex items-center gap-2 text-blue-600 hover:text-blue-800 add-answer" data-question-id="${questionCount}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 12h8"></path>
+                            <path d="M12 8v8"></path>
+                        </svg>
+                        Добавить вариант ответа
+                    </button>
+                </div>
+            `;
+            document.getElementById('questions-container').appendChild(questionContainer);
+
+            addDeleteButtonListener(questionCount);
+            
+            addAnswerButtonListener(questionCount);
+            
+        });
+
+        document.getElementById('save-test').addEventListener('click', async () => {
+            const testName = document.getElementById('test-name').value;
+            const subject = {name: document.getElementById('subject').value};
+            const testClass = document.getElementById('class').value;
+            
+            const questions = [];
+            document.querySelectorAll('.question-container').forEach(question => {
+                const questionText = question.querySelector('.question-text').value;
+                const answers = [];
+                question.querySelectorAll('.answer-text').forEach((answer, index) => {
+                    const checkbox = question.querySelectorAll('input[type="checkbox"]')[index];
+                    answers.push({
+                        answer: answer.value,
+                        is_correct: checkbox.checked 
+                    });
+                });
+
+                questions.push({
+                    question: questionText,
+                    answers: answers
+                });
+            });
+
+            const examData = {
+                name: testName,
+                subject: subject,
+                class_school: testClass,
+                questions: questions
+            };
+
+            const csrfToken = getCsrfToken();
+            
+            try {
+                const response = await fetch('/api/create_exam', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken,  
+                    },
+                    body: JSON.stringify(examData),
+                });
+
+                if (response.ok) {
+                    alert('Тест успешно сохранен');
+                } else {
+                    alert('Ошибка при сохранении теста');
+                }
+            } catch (error) {
+                console.error('Ошибка при отправке данных:', error);
+                alert('Ошибка при сохранении теста');
+            }
+        });
+    </script>
+{% endblock %}

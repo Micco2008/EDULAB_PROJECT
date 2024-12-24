@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600">
+        <div class="w-full max-w-md bg-white shadow-lg rounded-lg px-8 py-6" style="padding: 50px; padding-bottom: 30px; max-width: 500px">
+            <h2 class="text-center text-2xl font-bold text-gray-800 mb-6">Вход в аккаунт</h2>
+            <form method="post" class="space-y-4">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div>
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.help_text %}
+                            <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    Войти в аккаунт
+                </button>
+                <div class="text-center mt-4">
+                    <a class="text-blue-600 hover:underline text-sm" href="{% url 'users:signup' %}">Регистрация</a>
+                </div>
+                <div class="text-center mt-2">
+                    <a class="text-blue-600 hover:underline text-sm" href="{% url 'users:password_reset' %}">Забыли пароль?</a>
+                    <span class="mx-2">|</span>
+                    <a class="text-blue-600 hover:underline text-sm" href="{% url 'users:password_change' %}">Сменить пароль</a>
+                </div>
+            </form>
+            {% for message in messages %}
+                <p class="text-green-500 text-center font-semibold mt-4">{{ message }}</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

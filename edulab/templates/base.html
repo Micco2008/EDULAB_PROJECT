@@ -1,0 +1,29 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduLab - Образовательная платформа</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&amp;display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" crossorigin="" href="{% static 'css/main_tw.css' %}">
+
+    {% block head_meta %}
+    {% endblock %}
+
+</head>
+<body>
+<div id="root">
+    <div class="min-h-screen bg-[#F5F0E8]">
+        <header class="bg-[#2D3B31] shadow-lg">
+            {% include 'includes/header.html' %}
+        </header>
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" style="min-height: 900px;">
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+</div>
+</body>
+</html>

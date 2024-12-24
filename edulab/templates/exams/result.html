@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto p-6">
+    <a class="flex items-center gap-2 text-gray-600 hover:text-gray-800 mb-6" href="{% url 'exams:home' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             class="lucide lucide-arrow-left ">
+            <path d="m12 19-7-7 7-7"></path>
+            <path d="M19 12H5"></path>
+        </svg>
+        Вернуться к тестам
+    </a>
+    <div class="bg-white rounded-lg shadow-md p-8 text-center">
+        <div class="mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="lucide lucide-trophy mx-auto text-yellow-500 mb-4">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                <path d="M4 22h16"></path>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+            </svg>
+            <h2 class="text-3xl font-bold mb-2">Тест завершен!</h2>
+            <p class="text-gray-600">Вот ваши результаты:</p></div>
+        <div class="mb-8">
+            <div class="text-6xl font-bold text-blue-500 mb-2">{{ percent }}%</div>
+            <p class="text-xl text-gray-700">{{ score }} правильных ответов из {{ max_score }}</p></div>
+        <div class="space-y-4"><p class="text-orange-600">Попробуйте еще раз, чтобы улучшить свой результат!</p></div>
+    </div>
+</div>
+{% endblock %}
